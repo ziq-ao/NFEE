@@ -128,8 +128,8 @@ def plot_pdf_marginals(pdf, lims, gt=None, levels=(0.68, 0.95, 0.99), upper=Fals
         lims = np.asarray(lims)
         lims = np.tile(lims, [pdf.n_dims, 1]) if lims.ndim == 1 else lims
 
-        for i in xrange(pdf.n_dims):
-            for j in xrange(i, pdf.n_dims) if upper else xrange(i + 1):
+        for i in range(pdf.n_dims):
+            for j in range(i, pdf.n_dims) if upper else range(i + 1):
 
                 ax = fig.add_subplot(pdf.n_dims, pdf.n_dims, i * pdf.n_dims + j + 1)
 
@@ -173,7 +173,7 @@ def plot_hist_marginals(data, weights=None, lims=None, gt=None, upper=False, ras
     if data.ndim == 1:
 
         fig, ax = plt.subplots(1, 1)
-        ax.hist(data, weights=weights, bins=n_bins, normed=True, rasterized=rasterized)
+        ax.hist(data, weights=weights, bins=n_bins, density=True, rasterized=rasterized)
         ax.set_ylim([0.0, ax.get_ylim()[1]])
         ax.tick_params(axis='y', which='both', left=False, right=False, labelleft=False)
         if lims is not None: ax.set_xlim(lims)
@@ -195,13 +195,13 @@ def plot_hist_marginals(data, weights=None, lims=None, gt=None, upper=False, ras
             lims = np.asarray(lims)
             lims = np.tile(lims, [n_dim, 1]) if lims.ndim == 1 else lims
 
-        for i in xrange(n_dim):
-            for j in xrange(i, n_dim) if upper else xrange(i + 1):
+        for i in range(n_dim):
+            for j in range(i, n_dim) if upper else range(i + 1):
 
                 ax = fig.add_subplot(n_dim, n_dim, i * n_dim + j + 1)
 
                 if i == j:
-                    ax.hist(data[:, i], weights=weights, bins=n_bins, normed=True, rasterized=rasterized)
+                    ax.hist(data[:, i], weights=weights, bins=n_bins, density=True, rasterized=rasterized)
                     ax.set_ylim([0.0, ax.get_ylim()[1]])
                     ax.tick_params(axis='y', which='both', left=False, right=False, labelleft=False)
                     if i < n_dim - 1 and not upper: ax.tick_params(axis='x', which='both', labelbottom=False)
